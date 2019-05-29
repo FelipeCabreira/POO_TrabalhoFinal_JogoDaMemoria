@@ -40,6 +40,6 @@ Os objetivos específicos do trabalho são:
 
 ## Composição dos grupos, entrega e avaliação
 - O trabalho deve ser desenvolvido em grupos de no máximo 3 integrantes
-- O trabalho deverá ser entregue através do MSTeams e apresentado em aula no dia especificado no cronograma da disciplina
-- A apresentação em aula é obrigatória. Grupos que não apresentarem terão nota zero.
+- O trabalho deverá ser entregue através do MSTeams até as 23:59 do dia 30/06/2019 e apresentado em aula no dia 01/07/2019. Não serão aceitos trabalhos entregues fora do prazo.
+- A apresentação em aula é obrigatória. Grupos que não apresentarem terão nota zero. Se não houver tempo disponível para todas as apresentações no dia 01/07 a apresentação poderá ocorrer na aula do dia 03/07/2019 a critério do professor.
 - A cópia/plágio de trabalhos também implica em nota zero para todos os envolvidos
