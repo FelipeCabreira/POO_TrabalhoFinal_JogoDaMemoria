@@ -22,4 +22,7 @@ O diagrama de classes pode ser visto na figura disponibilizada neste repositóri
 
 ## Objetivos específicos
 Os objetivos específicos do trabalho são:
-- C
+- Criar pelo menos dois tipos novos de cartas que podem coexistir no mesmo jogo ou não (configurado na interface com o usuário)
+- Criar pelo menos dois tipos novos de "inteligencia" para o "computador" (configurado na interface com o usuário como parte do nivel de dificuldade)
+- Melhorar a interface com o usuário. Esta deverá ter:
+** sdsda
