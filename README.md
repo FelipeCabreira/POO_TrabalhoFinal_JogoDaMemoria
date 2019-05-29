@@ -25,4 +25,21 @@ Os objetivos específicos do trabalho são:
 - Criar pelo menos dois tipos novos de cartas que podem coexistir no mesmo jogo ou não (configurado na interface com o usuário)
 - Criar pelo menos dois tipos novos de "inteligencia" para o "computador" (configurado na interface com o usuário como parte do nivel de dificuldade)
 - Melhorar a interface com o usuário. Esta deverá ter:
-  - sdsda
+    - Opções para configurar o tipo de jogo
+        - Tipos de cartas
+        - "Inteligência" do computador
+    - Exibir a quantidade de pares do humano e do computador ao longo do jogo
+    - Exibir a pontuação do humano e do computador ao longo do jogo
+    - Exibir uma tela de fim apresentando a lista de pares do humano e do computador juntamente com suas pontuações e indicação do vencedor.
+- Ampliar o tabuleiro para no mínimo 6 linhas e 5 colunas (15 pares)
+- Funcionalidade extra: permitir que o jogador reinicie uma partida após o final do jogo sem ter de sair do programa
+
+## Restrições
+- Os novos tipos de cartas, bem como as novas opções de "inteligência" para o "computador" devem ser implementadas a partir da classe abstrata "Carta" e da interface "MemoriaComputador" explorando os conceitos de herança e polimorfismo vistas em aula.
+- Alterações na classe "ControleDeJogadas" devem ser evitadas e, em caso de necessidade, deverão ser plenamente justificadas.
+
+## Composição dos grupos, entrega e avaliação
+- O trabalho deve ser desenvolvido em grupos de no máximo 3 integrantes
+- O trabalho deverá ser entregue através do MSTeams e apresentado em aula no dia especificado no cronograma da disciplina
+- A apresentação em aula é obrigatória. Grupos que não apresentarem terão nota zero.
+- A cópia/plágio de trabalhos também implica em nota zero para todos os envolvidos
