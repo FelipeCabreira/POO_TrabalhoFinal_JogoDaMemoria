@@ -26,6 +26,8 @@ public class Jogo extends Application {
     private Carta cartaCorrente, ultimaCartaAberta;
     private Carta primCartaComp,segCartaComp;
 
+
+
     public static void main(String[] args) {
         launch(args);
     }
