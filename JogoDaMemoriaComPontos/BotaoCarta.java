@@ -4,8 +4,10 @@ public class BotaoCarta extends Carta {
     private String nomeFigura;
     private CardState state;
     private Posicao posicao;
+    private CartaEspecial stateEspecial;
 
     public BotaoCarta(String nomeFigura){
+    //  TODO: METODO QUE ACESSA UM ICONE
         this.nomeFigura = nomeFigura;
         this.state = CardState.FECHADA;
         posicao = null;
@@ -20,6 +22,13 @@ public class BotaoCarta extends Carta {
     @Override
     public CardState getState() {
         return state;
+    }
+
+
+    //TODO: ACESSA UM ENUM PARA VALIDAR / VERIFICAR SE EXISTE UM ICONE BONUS OU NÃO
+    @Override
+    public CartaEspecial getType() {
+        return stateEspecial;
     }
 
     @Override
@@ -67,6 +76,8 @@ public class BotaoCarta extends Carta {
         return getNomeFigura().equals(outra.getNomeFigura());
     }
 
+    //TODO: METODO PARA VERIFICAR SE O ICONE É IGUAL
+
     @Override
     public int calculaPontosPro(Carta outra) {
         return 1;
@@ -95,5 +106,11 @@ public class BotaoCarta extends Carta {
         iVaux.setFitWidth(Jogo.CARD_WIDTH);
         iVaux.setFitHeight(Jogo.CARD_HEIGHT);
         setGraphic(iVaux);
+    }
+
+    //TODO: METODO DEFINE ICONE
+
+    public boolean cardBonus() {
+        return false;
     }
 }

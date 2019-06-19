@@ -23,11 +23,22 @@ public abstract class Carta extends Button{
     public abstract int calculaPontosContra(Carta outra);
     // Define a imagem da carta conforme seu estado interno
     public abstract void defineImagem();
+
+    // ############## -- NEW METHODS -- ################## //
+    public abstract CartaEspecial getType();
+
+    // Define uma carta bonus para quem fez um match ( Carta Bonus = ICONE INDENTIFICANDO-A )
+    // TODO: VALIDADOR DE ICONES IGUAIS
+    public abstract boolean cardBonus();
 }
 
 // Sugestões de tipos de cartas
 // Carta normal de memória: 1 ponto para quem faz o match
-// Carta bonus: 2 pontos para quem faz o match
+// Carta com ordem: abrindo na ordem certa vale 2 pontos, senão 1 ponto
+
+
+
+// -- METODOS A SEREM IMPLEMENTADOS -- //
+// Carta bonus: 2 pontos para quem faz o match ( ICONE )
 // Carta especial: 1 ponto para quem faz o match e retira um 1 ponto do adversario
 // Carta aleatório: o número de pontos pode ser sorteado (0, 1 ou 2)
-// Carta com ordem: abrindo na ordem certa vale 2 pontos, senão 1 ponto

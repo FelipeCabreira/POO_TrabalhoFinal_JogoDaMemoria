@@ -24,6 +24,9 @@ public class ControleDeJogadas {
         // Cria os pares de cartas em uma lista temporaria
         cartas = new ArrayList<>();
         for(int i=1;i<=NUMPARES;i++){
+        // TODO: TODA VEZ QUE INSTANCIA UM BOTAO CARTA ( INSTANCIA 2 CARTAS COM MESMO NOME DE IMAGEM E DA SHUFFLE )
+        // TODO: ADICIONAR TAMBEM UM ICONE, E SÓ ADICIONAR AS VEZES ( RANDOM ) - IDEIA: INSTANCIAR UM RANDOM NUMBER SE FOR
+        // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
             cartas.add(new BotaoCarta("img"+i));
             cartas.add(new BotaoCarta("img"+i));
         }

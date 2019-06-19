@@ -9,7 +9,7 @@ public class MemoriaCurta implements MemoriaComputador {
     private ControleDeJogadas cJog;
     private Carta primeiraCarta;
     private Random r;
-    
+
     public MemoriaCurta(ControleDeJogadas cJog){
         r = new Random();
         memoria = new LinkedList<>();
@@ -37,9 +37,9 @@ public class MemoriaCurta implements MemoriaComputador {
             carta = cJog.getCarta(nLin, nCol);
             // Se a carta esta aberta ou é usada, anula
             if (carta.getState() == CardState.ABERTA ||
-                carta.getState() == CardState.USADA){
-                    carta = null;
-                }
+                    carta.getState() == CardState.USADA){
+                carta = null;
+            }
         }
         return carta;
     }
@@ -57,12 +57,12 @@ public class MemoriaCurta implements MemoriaComputador {
         for(Carta c:memoria){
             // Se lembrou retorna a carta
             if (c.getNomeFigura().equals(primeiraCarta.getNomeFigura())&&
-                c.getPosicao() != primeiraCarta.getPosicao()){
+                    c.getPosicao() != primeiraCarta.getPosicao()){
                 return c;
             }
         }
         // Se nao lembrou chuta uma
-        return chutaCarta(); 
+        return chutaCarta();
     }
 
     @Override

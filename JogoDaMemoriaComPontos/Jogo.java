@@ -80,7 +80,7 @@ public class Jogo extends Application {
                 tab.add(bt, col, lin);
             }
         }
-        
+
         // Monta a cena e exibe
         Scene scene = new Scene(tab);
         primaryStage.setScene(scene);
@@ -111,8 +111,8 @@ public class Jogo extends Application {
                 // Programa a analise da jogada em 2 segundo para permitr
                 // que o jogador veja as cartas abertas
                 Timeline timeline = new Timeline(
-                    new KeyFrame(Duration.millis(1500),
-                                 ae -> analisaJogada())
+                        new KeyFrame(Duration.millis(1500),
+                                ae -> analisaJogada())
                 );
                 timeline.play();
             }
@@ -122,26 +122,26 @@ public class Jogo extends Application {
     public void analisaJogada() {
         GameState state = cJog.setCarta(cartaCorrente);
         switch (state) {
-        case ABRIU_CARTA1:
-            ultimaCartaAberta = cartaCorrente;
-            cartaCorrente.defineImagem();
-            return;
-        case NAO_ACHOU_PAR:
-            ultimaCartaAberta.defineImagem();
-            cartaCorrente.defineImagem();
-            break;
-        case ACHOU_PAR:
-            ultimaCartaAberta.defineImagem();
-            cartaCorrente.defineImagem();
-            break;
-        case FIMDEPARTIDA:
-            String str = "Humano: "+cJog.getPontosHumano()+" pontos\n";
-            str += "Computador: "+cJog.getPontosComputador()+" pontos";
-            Alert msgBox = new Alert(AlertType.INFORMATION);
-            msgBox.setHeaderText("Fim de Jogo");
-            msgBox.setContentText(str);
-            msgBox.show();
-            return;
+            case ABRIU_CARTA1:
+                ultimaCartaAberta = cartaCorrente;
+                cartaCorrente.defineImagem();
+                return;
+            case NAO_ACHOU_PAR:
+                ultimaCartaAberta.defineImagem();
+                cartaCorrente.defineImagem();
+                break;
+            case ACHOU_PAR:
+                ultimaCartaAberta.defineImagem();
+                cartaCorrente.defineImagem();
+                break;
+            case FIMDEPARTIDA:
+                String str = "Humano: "+cJog.getPontosHumano()+" pontos\n";
+                str += "Computador: "+cJog.getPontosComputador()+" pontos";
+                Alert msgBox = new Alert(AlertType.INFORMATION);
+                msgBox.setHeaderText("Fim de Jogo");
+                msgBox.setContentText(str);
+                msgBox.show();
+                return;
         }
         // Acoes que são iguais depois de se abrir a segunda carta
         ultimaCartaAberta = null;
@@ -155,10 +155,10 @@ public class Jogo extends Application {
         segCartaComp = cJog.segundaCartaComputador();
         primCartaComp.defineImagem();
         segCartaComp.defineImagem();
-        
+
         Timeline timeline = new Timeline(
-            new KeyFrame(Duration.millis(1000),
-                         ae -> jogadaComputadorParte2())
+                new KeyFrame(Duration.millis(1000),
+                        ae -> jogadaComputadorParte2())
         );
         timeline.play();
     }
