@@ -40,7 +40,7 @@ public class Jogo extends Application {
         imagens = new HashMap<>();
 
         // Armazena a imagem das costas das cartas
-        Image aux = new Image("file:Imagens\\back.jpg");
+        Image aux = new Image("\\Imagens\\back.jpg");
         imagens.put("back", aux);
 
         // Armazena a imagem da carta vazia
@@ -48,7 +48,7 @@ public class Jogo extends Application {
 
         // Armazena as demais imagens
         for (int i = 1; i <= ControleDeJogadas.NUMPARES; i++) {
-            aux = new Image("file:Imagens\\img" + i + ".jpg");
+            aux = new Image("\\Imagens\\img" + i + ".jpg");
             imagens.put("img" + i, aux);
         }
     }
