@@ -9,12 +9,13 @@ public class ControleDeJogadas {
     private GameState state; // Estado do jogo
     private List<Carta> cartas; // Cartas do jogo
     private MemoriaComputador memoriaComputador;
-    private Carta carta1,carta2; // Cartas da jogada do humano
-    private Carta cartaC1,cartaC2; // cartas da jogada do computador
-    private int pontosHumano,pontosComputador;
+    private Carta carta1, carta2; // Cartas da jogada do humano
+    private Carta cartaC1, cartaC2; // cartas da jogada do computador
+    private int pontosHumano, pontosComputador;
     private int qtdadePares;
+    private int dificuldadeComp;
 
-    public ControleDeJogadas(){
+    public ControleDeJogadas(int dificuldadeComp) {
         carta1 = null;
         carta2 = null;
         pontosHumano = 0;
@@ -23,45 +24,68 @@ public class ControleDeJogadas {
 
         // Cria os pares de cartas em uma lista temporaria
         cartas = new ArrayList<>();
-        for(int i=1;i<=NUMPARES;i++){
-        // TODO: TODA VEZ QUE INSTANCIA UM BOTAO CARTA ( INSTANCIA 2 CARTAS COM MESMO NOME DE IMAGEM E DA SHUFFLE )
-        // TODO: ADICIONAR TAMBEM UM ICONE, E SÓ ADICIONAR AS VEZES ( RANDOM ) - IDEIA: INSTANCIAR UM RANDOM NUMBER SE FOR
-        // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
-            cartas.add(new BotaoCarta("img"+i));
-            cartas.add(new BotaoCarta("img"+i));
+        for (int i = 1; i <= NUMPARES; i++) {
+            // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+            cartas.add(new BotaoCarta("img" + i));
+            cartas.add(new BotaoCarta("img" + i));
         }
         // Embaralha as cartas
         Collections.shuffle(cartas);
 
-        // Cria a memoria do computador
-        memoriaComputador = new MemoriaCurta(this);
+        // Cria a memoria do computador dependendo de sua dificuldade selecionada
+//        memoriaComputador = new MemoriaCurta(this);
+        setMemoriaComputador(dificuldadeComp);
     }
 
-    public Carta getCarta(int nLin,int nCol){
-        int pos = (nLin*NCOL)+nCol;
+    public int getQuantidadePares(){
+        return qtdadePares;
+    }
+
+    public void setMemoriaComputador(int numberCase) {
+        switch (numberCase) {
+            case 1:
+                System.out.println("Memoria Curta Selecionada");
+                memoriaComputador = new MemoriaCurta(this);
+                break;
+            case 2:
+                System.out.println("Memoria Fraca Selecionada");
+                memoriaComputador = new MemoriaFraca(this);
+                break;
+            case 3:
+                System.out.println("Memoria Longa Selecionada");
+                memoriaComputador = new MemoriaLonga(this);
+                break;
+            default:
+                memoriaComputador = new MemoriaCurta(this);
+                break;
+        }
+    }
+
+    public Carta getCarta(int nLin, int nCol) {
+        int pos = (nLin * NCOL) + nCol;
         return cartas.get(pos);
     }
 
-    public GameState gState(){
+    public GameState gState() {
         return state;
     }
 
-    public int getPontosHumano(){
+    public int getPontosHumano() {
         return pontosHumano;
     }
 
-    public int getPontosComputador(){
+    public int getPontosComputador() {
         return pontosComputador;
     }
 
-    public GameState setCarta(Carta carta){
-        if (carta1 == null){
+    public GameState setCarta(Carta carta) {
+        if (carta1 == null) {
             this.carta1 = carta;
             memoriaComputador.memoriza(carta);
             return GameState.ABRIU_CARTA1;
-        }else{
+        } else {
             this.carta2 = carta;
-            if (carta1.matches(carta2)){
+            if (carta1.matches(carta2)) {
                 memoriaComputador.removeDaMemoria(carta1);
                 carta1.tiraDoJogo();
                 carta2.tiraDoJogo();
@@ -70,12 +94,12 @@ public class ControleDeJogadas {
                 carta1 = null;
                 carta2 = null;
                 qtdadePares--;
-                if (qtdadePares == 0){
+                if (qtdadePares == 0) {
                     return GameState.FIMDEPARTIDA;
-                }else{
+                } else {
                     return GameState.ACHOU_PAR;
                 }
-            }else{
+            } else {
                 memoriaComputador.memoriza(carta);
                 carta1.fecha();
                 carta2.fecha();
@@ -84,22 +108,22 @@ public class ControleDeJogadas {
                 return GameState.NAO_ACHOU_PAR;
             }
         }
-    } 
+    }
 
-    public Carta primeiraCartaComputador(){
-        cartaC1 =  memoriaComputador.getPrimeiraCarta();
+    public Carta primeiraCartaComputador() {
+        cartaC1 = memoriaComputador.getPrimeiraCarta();
         cartaC1.abre();
         return cartaC1;
     }
 
-    public Carta segundaCartaComputador(){
-        cartaC2 =  memoriaComputador.getSegundaCarta();
+    public Carta segundaCartaComputador() {
+        cartaC2 = memoriaComputador.getSegundaCarta();
         cartaC2.abre();
         return cartaC2;
     }
 
-    public GameState completaJogadaComputador(){
-        if (cartaC1.matches(cartaC2)){
+    public GameState completaJogadaComputador() {
+        if (cartaC1.matches(cartaC2)) {
             memoriaComputador.removeDaMemoria(cartaC1);
             memoriaComputador.removeDaMemoria(cartaC2);
             cartaC1.tiraDoJogo();
@@ -109,12 +133,12 @@ public class ControleDeJogadas {
             cartaC1 = null;
             cartaC2 = null;
             qtdadePares--;
-            if (qtdadePares == 0){
+            if (qtdadePares == 0) {
                 return GameState.FIMDEPARTIDA;
-            }else{
+            } else {
                 return GameState.ACHOU_PAR;
             }
-        }else{
+        } else {
             memoriaComputador.memoriza(cartaC1);
             memoriaComputador.memoriza(cartaC2);
             cartaC1.fecha();
