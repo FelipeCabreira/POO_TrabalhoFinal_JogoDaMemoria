@@ -9,11 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -69,13 +66,25 @@ public class Jogo extends Application {
         primaryStage.setTitle("Jogo da memoria");
         // Configurar Labels pontos
         TextField userCountText = new TextField();
-        Label userCountLabel = new Label("Pontos Jogador");
+        Label userCountLabel = new Label("Pontos Jogador :");
         userCountText.setDisable(true);
+        userCountText.setMaxWidth(129);
+
         TextField computerCountText = new TextField();
+        Label computerCountLabel = new Label("Pontos Computador :");
         computerCountText.setDisable(true);
-//        computerCountText.setText("Value Inputed by force");
-//        userCountText.setText("Value Inputed by force");
-        Label computerCountLabel = new Label("Pontos Computador");
+        computerCountText.setMaxWidth(129);
+
+        ToggleGroup groupRadio = new ToggleGroup();
+        RadioButton radEasy = new RadioButton("Easy");
+        radEasy.setToggleGroup(groupRadio);
+        radEasy.setSelected(true);
+        RadioButton radNormal = new RadioButton("Normal");
+        radNormal.setToggleGroup(groupRadio);
+        RadioButton radHard = new RadioButton("Hard");
+        radHard.setToggleGroup(groupRadio);
+
+
 
         // Configurar grid cards
         GridPane tab = new GridPane();
@@ -86,6 +95,9 @@ public class Jogo extends Application {
 //        tab.setGridLinesVisible(true);
         tab.addRow(8, userCountLabel, userCountText);
         tab.addRow(10, computerCountLabel, computerCountText);
+        tab.addRow(12, radEasy);
+        tab.addRow(13, radNormal);
+        tab.addRow(14, radHard);
 
 
 
