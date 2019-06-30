@@ -3,7 +3,7 @@ public class BotaoBonus extends BotaoCarta {
     private CardState stateBonus;
     private Posicao posicaoBonus;
 
-    public BotaoBonus(String nomeFigura, CardState stateBonus, Posicao posicaoBonus) {
+    public BotaoBonus(String nomeFigura) {
         super(nomeFigura);
         this.nomeFigura = nomeFigura;
         this.stateBonus = CardState.FECHADA;

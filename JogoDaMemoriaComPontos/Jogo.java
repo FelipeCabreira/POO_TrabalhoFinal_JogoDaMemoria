@@ -23,8 +23,7 @@ public class Jogo extends Application {
     private ControleDeJogadas cJog;
     private static Map<String, Image> imagens;
     private Carta cartaCorrente, ultimaCartaAberta;
-    private Carta primCartaComp,segCartaComp;
-
+    private Carta primCartaComp, segCartaComp;
 
 
     public static void main(String[] args) {
@@ -74,18 +73,31 @@ public class Jogo extends Application {
         Label computerCountLabel = new Label("Pontos Computador :");
         computerCountText.setDisable(true);
         computerCountText.setMaxWidth(129);
-
-
+        // Muda dificuldade do computador do jogo
+        Label radioGroupLabel = new Label("Dificuldade Computador: ");
         ToggleGroup groupRadio = new ToggleGroup();
         RadioButton radEasy = new RadioButton("Easy");
         radEasy.setToggleGroup(groupRadio);
-        radEasy.setSelected(true);
         RadioButton radNormal = new RadioButton("Normal");
         radNormal.setToggleGroup(groupRadio);
+        radNormal.setSelected(true);
         RadioButton radHard = new RadioButton("Hard");
         radHard.setToggleGroup(groupRadio);
 
+        // Muda modo de jogo
+        Button btTypeGame = new Button("Mudar Jogo");
 
+
+//        Label radioTypeButton = new Label("Modo Jogo: ");
+//        ToggleGroup groupTypeButton = new ToggleGroup();
+//        RadioButton radBotaoCarta = new RadioButton("Normal Card");
+//        radBotaoCarta.setToggleGroup(groupTypeButton);
+//        radBotaoCarta.setSelected(true);
+//        RadioButton radBotaoBonus = new RadioButton("Bonus Card");
+//        radBotaoBonus.setToggleGroup(groupTypeButton);
+//        RadioButton radBotaoEspecial = new RadioButton("Special Card");
+//        radBotaoEspecial.setToggleGroup(groupTypeButton);
+        //
 
         // Configurar grid cards
         GridPane tab = new GridPane();
@@ -94,25 +106,31 @@ public class Jogo extends Application {
         tab.setVgap(10);
         tab.setPadding(new Insets(25, 25, 25, 25));
 //        tab.setGridLinesVisible(true);
+        tab.addRow(6,btTypeGame);
         tab.addRow(8, userCountLabel, userCountText);
         tab.addRow(10, computerCountLabel, computerCountText);
-        tab.addRow(12, radEasy);
-        tab.addRow(13, radNormal);
-        tab.addRow(14, radHard);
+        tab.addRow(12, radioGroupLabel);
+        tab.addRow(14, radEasy);
+        tab.addRow(15, radNormal);
+        tab.addRow(16, radHard);
+//        tab.addRow(17, radioTypeButton);
+//        tab.addRow(18, radBotaoCarta);
+//        tab.addRow(19, radBotaoBonus);
+//        tab.addRow(20, radBotaoEspecial);
 
         // Verifica o tipo de dificuldade por eventos
         radEasy.setOnAction(e -> {
-            if(radEasy.isSelected()){
+            if (radEasy.isSelected()) {
                 cJog.setMemoriaComputador(2);
             }
         });
         radNormal.setOnAction(e -> {
-            if(radNormal.isSelected()){
+            if (radNormal.isSelected()) {
                 cJog.setMemoriaComputador(1);
             }
         });
         radHard.setOnAction(e -> {
-            if(radHard.isSelected()){
+            if (radHard.isSelected()) {
                 cJog.setMemoriaComputador(3);
             }
         });
@@ -122,11 +140,15 @@ public class Jogo extends Application {
         for (int lin = 0; lin < ControleDeJogadas.NLIN; lin++) {
             for (int col = 0; col < ControleDeJogadas.NCOL; col++) {
                 Carta bt = cJog.getCarta(lin, col);
-                bt.setPosicao(new Posicao(lin,col));
-                bt.setOnAction(e -> viraCarta(e,userCountText, computerCountText));
+                bt.setPosicao(new Posicao(lin, col));
+                bt.setOnAction(e -> viraCarta(e, userCountText, computerCountText));
                 tab.add(bt, col, lin);
             }
         }
+
+        btTypeGame.setOnAction(e -> {
+            abreModal();
+        });
 
         // Monta a cena e exibe
         Scene scene = new Scene(tab);
@@ -134,8 +156,13 @@ public class Jogo extends Application {
         primaryStage.show();
     }
 
+
+    public void abreModal(){
+//            Jogo.launch();
+    }
+
     public void viraCarta(ActionEvent e, TextField userField, TextField computerField) {
-        if (cartaCorrente != null){ // Se esta aguardando análise, retorna
+        if (cartaCorrente != null) { // Se esta aguardando análise, retorna
             return;
         }
         // Identifica a carta acionada e reage de acordo
@@ -149,11 +176,11 @@ public class Jogo extends Application {
             but.abre();
             but.defineImagem();
             // anota a carta corrente
-            if (ultimaCartaAberta == null){
+            if (ultimaCartaAberta == null) {
                 ultimaCartaAberta = but;
                 // informa a primeira carta
                 cJog.setCarta(but);
-            }else{
+            } else {
                 cartaCorrente = but;
                 // Programa a analise da jogada em 2 segundo para permitir
                 // que o jogador veja as cartas abertas
@@ -168,7 +195,7 @@ public class Jogo extends Application {
 
     public void analisaJogada(TextField userField, TextField computerField) {
         GameState state = cJog.setCarta(cartaCorrente);
-        String StrPontosComp = ""+ cJog.getPontosComputador();
+        String StrPontosComp = "" + cJog.getPontosComputador();
         String StrPontosUser = "" + cJog.getPontosHumano();
         switch (state) {
             case ABRIU_CARTA1:
@@ -190,8 +217,8 @@ public class Jogo extends Application {
                 userField.setText(StrPontosUser);
                 break;
             case FIMDEPARTIDA:
-                String str = "Humano: "+cJog.getPontosHumano()+" pontos\n";
-                str += "Computador: "+cJog.getPontosComputador()+" pontos";
+                String str = "Humano: " + cJog.getPontosHumano() + " pontos\n";
+                str += "Computador: " + cJog.getPontosComputador() + " pontos";
                 Alert msgBox = new Alert(AlertType.INFORMATION);
                 msgBox.setHeaderText("Fim de Jogo");
                 msgBox.setContentText(str);
@@ -205,7 +232,7 @@ public class Jogo extends Application {
         jogadaComputadorParte1();
     }
 
-    public void jogadaComputadorParte1(){
+    public void jogadaComputadorParte1() {
         primCartaComp = cJog.primeiraCartaComputador();
         segCartaComp = cJog.segundaCartaComputador();
         primCartaComp.defineImagem();
@@ -218,10 +245,10 @@ public class Jogo extends Application {
         timeline.play();
     }
 
-    public void jogadaComputadorParte2(){
-        if (cJog.completaJogadaComputador() == GameState.FIMDEPARTIDA){
-            String str = "Humano: "+cJog.getPontosHumano()+" pontos\n";
-            str = str + "Computador: "+cJog.getPontosComputador()+" pontos";
+    public void jogadaComputadorParte2() {
+        if (cJog.completaJogadaComputador() == GameState.FIMDEPARTIDA) {
+            String str = "Humano: " + cJog.getPontosHumano() + " pontos\n";
+            str = str + "Computador: " + cJog.getPontosComputador() + " pontos";
             Alert msgBox = new Alert(AlertType.INFORMATION);
             msgBox.setHeaderText("Fim de Jogo");
             msgBox.setContentText(str);

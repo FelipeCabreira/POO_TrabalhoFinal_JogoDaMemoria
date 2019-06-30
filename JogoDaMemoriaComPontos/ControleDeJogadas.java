@@ -14,6 +14,7 @@ public class ControleDeJogadas {
     private int pontosHumano, pontosComputador;
     private int qtdadePares;
     private int dificuldadeComp;
+    private int tipoBotao;
 
     public ControleDeJogadas(int dificuldadeComp) {
         carta1 = null;
@@ -22,7 +23,9 @@ public class ControleDeJogadas {
         pontosComputador = 0;
         qtdadePares = NUMPARES;
 
-        // Cria os pares de cartas em uma lista temporaria
+
+        //  Seleciona o tipo de instancia de botao desejada ( modo de jogo )
+        // Cria os pares de cartas em uma lista temporaria ( BOTAO CARTA )
         cartas = new ArrayList<>();
         for (int i = 1; i <= NUMPARES; i++) {
             // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
@@ -31,9 +34,10 @@ public class ControleDeJogadas {
         }
         // Embaralha as cartas
         Collections.shuffle(cartas);
+//        setTipoBotao(tipoBotao);
 
         // Cria a memoria do computador dependendo de sua dificuldade selecionada
-//        memoriaComputador = new MemoriaCurta(this);
+        // memoriaComputador = new MemoriaCurta(this);
         setMemoriaComputador(dificuldadeComp);
     }
 
@@ -41,19 +45,76 @@ public class ControleDeJogadas {
         return qtdadePares;
     }
 
+    public void setTipoBotao(int numberCase){
+        switch (numberCase){
+            case 1:
+                System.out.println("Instanciado" + getClass().getName());
+                // Cria os pares de cartas em uma lista temporaria ( BOTAO CARTA )
+                cartas = new ArrayList<>();
+                for (int i = 1; i <= NUMPARES; i++) {
+                    // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+                    cartas.add(new BotaoCarta("img" + i));
+                    cartas.add(new BotaoCarta("img" + i));
+                }
+                // Embaralha as cartas
+                Collections.shuffle(cartas);
+                break;
+            case 2:
+                System.out.println("Instanciado" + getClass().getName());
+                // Cria os pares de cartas em uma lista temporaria
+                cartas = new ArrayList<>();
+                for (int i = 1; i <= NUMPARES; i++) {
+                    // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+                    cartas.add(new BotaoBonus("img" + i));
+                    cartas.add(new BotaoBonus("img" + i));
+                }
+                // Embaralha as cartas
+                Collections.shuffle(cartas);
+                break;
+            case 3:
+                System.out.println("Instanciado" + getClass ().getName());
+                // Cria os pares de cartas em uma lista temporaria
+                cartas = new ArrayList<>();
+                for (int i = 1; i <= NUMPARES; i++) {
+                    // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+                    cartas.add(new BotaoEspecial("img" + i));
+                    cartas.add(new BotaoEspecial("img" + i));
+                }
+                // Embaralha as cartas
+                Collections.shuffle(cartas);
+                break;
+            default:
+//                // Cria os pares de cartas em uma lista temporaria
+//                cartas = new ArrayList<>();
+//                for (int i = 1; i <= NUMPARES; i++) {
+//                    // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+//                    cartas.add(new BotaoCarta("img" + i));
+//                    cartas.add(new BotaoCarta("img" + i));
+//                }
+//                // Embaralha as cartas
+//                Collections.shuffle(cartas);
+                System.out.println("FAZ NADA");
+                break;
+        }
+
+    }
+
     public void setMemoriaComputador(int numberCase) {
         switch (numberCase) {
             case 1:
                 System.out.println("Memoria Curta Selecionada");
                 memoriaComputador = new MemoriaCurta(this);
+                System.out.println("Memoria size: " + ((MemoriaCurta) memoriaComputador).getMemorySize());
                 break;
             case 2:
                 System.out.println("Memoria Fraca Selecionada");
                 memoriaComputador = new MemoriaFraca(this);
+                System.out.println("Memoria size: " + ((MemoriaFraca) memoriaComputador).getMemorySize());
                 break;
             case 3:
                 System.out.println("Memoria Longa Selecionada");
                 memoriaComputador = new MemoriaLonga(this);
+                System.out.println("Memoria size: " + ((MemoriaLonga) memoriaComputador).getMemorySize());
                 break;
             default:
                 memoriaComputador = new MemoriaCurta(this);

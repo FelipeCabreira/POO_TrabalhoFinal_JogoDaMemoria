@@ -19,6 +19,12 @@ public class MemoriaFraca extends MemoriaCurta {
     }
 
     @Override
+    public int getMemorySize(){
+        return MEMORY_SIZE;
+    }
+
+
+    @Override
     public void memoriza(Carta card) {
         // Memoriza no máximo MEMORY_SIZE cartas
         if (memoria.contains(card)) {

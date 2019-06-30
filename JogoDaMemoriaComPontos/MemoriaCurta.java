@@ -17,6 +17,10 @@ public class MemoriaCurta implements MemoriaComputador {
         this.cJog = cJog;
     }
 
+    public int getMemorySize(){
+        return MEMORY_SIZE;
+    }
+
     @Override
     public void memoriza(Carta carta) {
         // Memoriza no máximo MEMORY_SIZE cartas
