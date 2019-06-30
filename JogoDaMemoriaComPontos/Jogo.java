@@ -58,7 +58,7 @@ public class Jogo extends Application {
         loadImagens();
 
         // Cria o controle do jogo
-        cJog = new ControleDeJogadas();
+        cJog = new ControleDeJogadas(1);
         ultimaCartaAberta = null;
         cartaCorrente = null;
 
@@ -74,6 +74,7 @@ public class Jogo extends Application {
         Label computerCountLabel = new Label("Pontos Computador :");
         computerCountText.setDisable(true);
         computerCountText.setMaxWidth(129);
+
 
         ToggleGroup groupRadio = new ToggleGroup();
         RadioButton radEasy = new RadioButton("Easy");
@@ -99,6 +100,22 @@ public class Jogo extends Application {
         tab.addRow(13, radNormal);
         tab.addRow(14, radHard);
 
+        // Verifica o tipo de dificuldade por eventos
+        radEasy.setOnAction(e -> {
+            if(radEasy.isSelected()){
+                cJog.setMemoriaComputador(2);
+            }
+        });
+        radNormal.setOnAction(e -> {
+            if(radNormal.isSelected()){
+                cJog.setMemoriaComputador(1);
+            }
+        });
+        radHard.setOnAction(e -> {
+            if(radHard.isSelected()){
+                cJog.setMemoriaComputador(3);
+            }
+        });
 
 
         // Cria os botoes das cartas

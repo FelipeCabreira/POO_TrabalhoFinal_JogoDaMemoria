@@ -12,6 +12,7 @@ public class MemoriaLonga extends MemoriaCurta {
 
     public MemoriaLonga(ControleDeJogadas controlGame){
         super(controlGame);
+        System.out.println("Instanciado " + getClass().getName());
         random = new Random();
         memoria = new ArrayList<>();
 //        this.controlGame = controlGame;

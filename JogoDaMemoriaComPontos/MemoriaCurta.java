@@ -11,6 +11,7 @@ public class MemoriaCurta implements MemoriaComputador {
     private Random r;
 
     public MemoriaCurta(ControleDeJogadas cJog){
+        System.out.println("Instanciado " + getClass().getName());
         r = new Random();
         memoria = new LinkedList<>();
         this.cJog = cJog;

@@ -12,6 +12,7 @@ public class MemoriaFraca extends MemoriaCurta {
 
     public MemoriaFraca(ControleDeJogadas controlGame) {
         super(controlGame);
+        System.out.println("Instanciado " + getClass().getName());
         random = new Random();
         memoria = new ArrayList<>();
 //        this.controlGame = controlGame;
