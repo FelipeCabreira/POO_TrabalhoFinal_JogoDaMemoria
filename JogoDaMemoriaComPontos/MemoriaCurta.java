@@ -28,7 +28,7 @@ public class MemoriaCurta implements MemoriaComputador {
         }
     }
 
-    private Carta chutaCarta(){
+    protected Carta chutaCarta(){
         // Enquanto não "pegar" uma carta valida, repete
         Carta carta = null;
         while(carta == null){

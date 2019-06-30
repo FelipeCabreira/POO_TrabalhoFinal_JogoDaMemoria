@@ -23,13 +23,6 @@ public abstract class Carta extends Button{
     public abstract int calculaPontosContra(Carta outra);
     // Define a imagem da carta conforme seu estado interno
     public abstract void defineImagem();
-
-    // ############## -- NEW METHODS -- ################## //
-    public abstract CartaEspecial getIconState();
-
-    // Define uma carta bonus para quem fez um match ( Carta Bonus = ICONE INDENTIFICANDO-A )
-    // TODO: VALIDADOR DE ICONES IGUAIS
-    public abstract boolean cardBonusMatches(Carta cBonus);
 }
 
 // Sugestões de tipos de cartas

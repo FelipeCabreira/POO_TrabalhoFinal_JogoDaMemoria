@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -65,18 +67,34 @@ public class Jogo extends Application {
 
         // Configura a interface com o usuario
         primaryStage.setTitle("Jogo da memoria");
+        // Configurar Labels pontos
+        TextField userCountText = new TextField();
+        Label userCountLabel = new Label("Pontos Jogador");
+        userCountText.setDisable(true);
+        TextField computerCountText = new TextField();
+        computerCountText.setDisable(true);
+//        computerCountText.setText("Value Inputed by force");
+//        userCountText.setText("Value Inputed by force");
+        Label computerCountLabel = new Label("Pontos Computador");
+
+        // Configurar grid cards
         GridPane tab = new GridPane();
         tab.setAlignment(Pos.CENTER);
         tab.setHgap(10);
         tab.setVgap(10);
         tab.setPadding(new Insets(25, 25, 25, 25));
+//        tab.setGridLinesVisible(true);
+        tab.addRow(8, userCountLabel, userCountText);
+        tab.addRow(10, computerCountLabel, computerCountText);
+
+
 
         // Cria os botoes das cartas
         for (int lin = 0; lin < ControleDeJogadas.NLIN; lin++) {
             for (int col = 0; col < ControleDeJogadas.NCOL; col++) {
                 Carta bt = cJog.getCarta(lin, col);
                 bt.setPosicao(new Posicao(lin,col));
-                bt.setOnAction(e -> viraCarta(e));
+                bt.setOnAction(e -> viraCarta(e,userCountText, computerCountText));
                 tab.add(bt, col, lin);
             }
         }
@@ -87,7 +105,7 @@ public class Jogo extends Application {
         primaryStage.show();
     }
 
-    public void viraCarta(ActionEvent e) {
+    public void viraCarta(ActionEvent e, TextField userField, TextField computerField) {
         if (cartaCorrente != null){ // Se esta aguardando análise, retorna
             return;
         }
@@ -108,31 +126,39 @@ public class Jogo extends Application {
                 cJog.setCarta(but);
             }else{
                 cartaCorrente = but;
-                // Programa a analise da jogada em 2 segundo para permitr
+                // Programa a analise da jogada em 2 segundo para permitir
                 // que o jogador veja as cartas abertas
                 Timeline timeline = new Timeline(
                         new KeyFrame(Duration.millis(1500),
-                                ae -> analisaJogada())
+                                ae -> analisaJogada(userField, computerField))
                 );
                 timeline.play();
             }
         }
     }
 
-    public void analisaJogada() {
+    public void analisaJogada(TextField userField, TextField computerField) {
         GameState state = cJog.setCarta(cartaCorrente);
+        String StrPontosComp = ""+ cJog.getPontosComputador();
+        String StrPontosUser = "" + cJog.getPontosHumano();
         switch (state) {
             case ABRIU_CARTA1:
                 ultimaCartaAberta = cartaCorrente;
                 cartaCorrente.defineImagem();
+                computerField.setText(StrPontosComp);
+                userField.setText(StrPontosUser);
                 return;
             case NAO_ACHOU_PAR:
                 ultimaCartaAberta.defineImagem();
                 cartaCorrente.defineImagem();
+                computerField.setText(StrPontosComp);
+                userField.setText(StrPontosUser);
                 break;
             case ACHOU_PAR:
                 ultimaCartaAberta.defineImagem();
                 cartaCorrente.defineImagem();
+                computerField.setText(StrPontosComp);
+                userField.setText(StrPontosUser);
                 break;
             case FIMDEPARTIDA:
                 String str = "Humano: "+cJog.getPontosHumano()+" pontos\n";
