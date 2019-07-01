@@ -1,5 +1,5 @@
-import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -15,7 +15,7 @@ public class MemoriaLonga extends MemoriaCurta {
         super(controlGame);
         System.out.println("Instanciado " + getClass().getName());
         random = new Random();
-        memoria = new ArrayList<>();
+        memoria = new LinkedList<>();
 //        this.controlGame = controlGame;
     }
 
@@ -47,15 +47,22 @@ public class MemoriaLonga extends MemoriaCurta {
     @Override
     public Carta getSegundaCarta() {
         // Verifica se lembra dela
-        for (Carta card : memoria) {
-            // Se lembrou retorna a carta
-            if (card.getNomeFigura().equals(primeiraCarta.getNomeFigura()) &&
-                    card.getPosicao() != primeiraCarta.getPosicao()) {
-                return card;
+        try{
+
+            for (Carta card : memoria) {
+                // Se lembrou retorna a carta
+                if (card.getNomeFigura().equals(primeiraCarta.getNomeFigura()) &&
+                        card.getPosicao() != primeiraCarta.getPosicao()) {
+                    return card;
+                }
             }
+        } catch(RuntimeException e) {
+            System.out.println("Thread error: " + e.getMessage());
+            System.out.println("Thread Stack Trace: " + e.getStackTrace());
+            System.out.println("Cause: " + e.getCause());
         }
         // Se nao lembrou chuta uma
-        return chutaCarta();
+        return throwCard();
     }
 
 
@@ -65,19 +72,7 @@ public class MemoriaLonga extends MemoriaCurta {
     }
 
 
-    protected Carta chutaCarta() {
-        // Enquanto não "pegar" uma carta valida, repete
-        Carta carta = null;
-        while (carta == null) {
-            int nLin = random.nextInt(ControleDeJogadas.NLIN);
-            int nCol = random.nextInt(ControleDeJogadas.NCOL);
-            carta = controlGame.getCarta(nLin, nCol);
-            // Se a carta esta aberta ou é usada, anula
-            if (carta.getState() == CardState.ABERTA ||
-                    carta.getState() == CardState.USADA) {
-                carta = null;
-            }
-        }
-        return carta;
+    private Carta throwCard() {
+        return super.chutaCarta();
     }
 }

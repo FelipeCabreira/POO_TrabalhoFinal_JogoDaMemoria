@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ public class MemoriaFraca extends MemoriaCurta {
         super(controlGame);
         System.out.println("Instanciado " + getClass().getName());
         random = new Random();
-        memoria = new ArrayList<>();
+        memoria = new LinkedList<>();
 //        this.controlGame = controlGame;
     }
 
@@ -46,13 +47,18 @@ public class MemoriaFraca extends MemoriaCurta {
 
     @Override
     public Carta getSegundaCarta() {
-        // Verifica se lembra dela
-        for(Carta card :memoria){
-            // Se lembrou retorna a carta
-            if (card.getNomeFigura().equals(primeiraCarta.getNomeFigura())&&
-                    card.getPosicao() != primeiraCarta.getPosicao()){
-                return card;
+        try{
+            // Verifica se lembra dela
+            for (Carta card : memoria) {
+                // Se lembrou retorna a carta
+                if (card.getNomeFigura().equals(primeiraCarta.getNomeFigura()) &&
+                        card.getPosicao() != primeiraCarta.getPosicao()) {
+                    return card;
+                }
             }
+        } catch (RuntimeException e) {
+            System.out.println("Thread error:" + e.getMessage());
+            System.out.println("Thread Stack Trace:" + e.getStackTrace());
         }
         // Se nao lembrou chuta uma
         return throwCard();

@@ -3,9 +3,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class ControleDeJogadas {
+//    public static final int NUMPARES = 9;
+//    public static final int NLIN = 6;
+//    public static final int NCOL = 3;
+
     public static final int NUMPARES = 9;
     public static final int NLIN = 6;
     public static final int NCOL = 3;
+
     private GameState state; // Estado do jogo
     private List<Carta> cartas; // Cartas do jogo
     private MemoriaComputador memoriaComputador;
@@ -41,84 +46,99 @@ public class ControleDeJogadas {
         setMemoriaComputador(dificuldadeComp);
     }
 
-    public int getQuantidadePares(){
+    public int getQuantidadePares() {
         return qtdadePares;
     }
 
-    public void setTipoBotao(int numberCase){
-        switch (numberCase){
-            case 1:
-                System.out.println("Instanciado" + getClass().getName());
-                // Cria os pares de cartas em uma lista temporaria ( BOTAO CARTA )
-                cartas = new ArrayList<>();
-                for (int i = 1; i <= NUMPARES; i++) {
-                    // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
-                    cartas.add(new BotaoCarta("img" + i));
-                    cartas.add(new BotaoCarta("img" + i));
-                }
-                // Embaralha as cartas
-                Collections.shuffle(cartas);
-                break;
-            case 2:
-                System.out.println("Instanciado" + getClass().getName());
-                // Cria os pares de cartas em uma lista temporaria
-                cartas = new ArrayList<>();
-                for (int i = 1; i <= NUMPARES; i++) {
-                    // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
-                    cartas.add(new BotaoBonus("img" + i));
-                    cartas.add(new BotaoBonus("img" + i));
-                }
-                // Embaralha as cartas
-                Collections.shuffle(cartas);
-                break;
-            case 3:
-                System.out.println("Instanciado" + getClass ().getName());
-                // Cria os pares de cartas em uma lista temporaria
-                cartas = new ArrayList<>();
-                for (int i = 1; i <= NUMPARES; i++) {
-                    // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
-                    cartas.add(new BotaoEspecial("img" + i));
-                    cartas.add(new BotaoEspecial("img" + i));
-                }
-                // Embaralha as cartas
-                Collections.shuffle(cartas);
-                break;
-            default:
-//                // Cria os pares de cartas em uma lista temporaria
-//                cartas = new ArrayList<>();
-//                for (int i = 1; i <= NUMPARES; i++) {
-//                    // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
-//                    cartas.add(new BotaoCarta("img" + i));
-//                    cartas.add(new BotaoCarta("img" + i));
-//                }
-//                // Embaralha as cartas
-//                Collections.shuffle(cartas);
-                System.out.println("FAZ NADA");
-                break;
+    public void setTipoBotao(int numberCase) {
+        try {
+
+            switch (numberCase) {
+                case 1:
+                    System.out.println("Instanciado" + getClass().getName());
+                    // Cria os pares de cartas em uma lista temporaria ( BOTAO CARTA )
+                    cartas = new ArrayList<>();
+                    for (int i = 1; i <= NUMPARES; i++) {
+                        // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+                        cartas.add(new BotaoCarta("img" + i));
+                        cartas.add(new BotaoCarta("img" + i));
+                    }
+                    // Embaralha as cartas
+                    Collections.shuffle(cartas);
+                    break;
+                case 2:
+                    System.out.println("Instanciado" + getClass().getName());
+                    // Cria os pares de cartas em uma lista temporaria
+                    cartas = new ArrayList<>();
+                    for (int i = 1; i <= NUMPARES; i++) {
+                        // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+                        cartas.add(new BotaoBonus("img" + i));
+                        cartas.add(new BotaoBonus("img" + i));
+                    }
+                    // Embaralha as cartas
+                    Collections.shuffle(cartas);
+                    break;
+                case 3:
+                    System.out.println("Instanciado" + getClass().getName());
+                    // Cria os pares de cartas em uma lista temporaria
+                    cartas = new ArrayList<>();
+                    for (int i = 1; i <= NUMPARES; i++) {
+                        // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+                        cartas.add(new BotaoEspecial("img" + i));
+                        cartas.add(new BotaoEspecial("img" + i));
+                    }
+                    // Embaralha as cartas
+                    Collections.shuffle(cartas);
+                    break;
+                default:
+                    // Cria os pares de cartas em uma lista temporaria
+                    cartas = new ArrayList<>();
+                    for (int i = 1; i <= NUMPARES; i++) {
+                        // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+                        cartas.add(new BotaoCarta("img" + i));
+                        cartas.add(new BotaoCarta("img" + i));
+                    }
+                    // Embaralha as cartas
+                    Collections.shuffle(cartas);
+                    System.out.println("FAZ NADA");
+                    break;
+            }
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("Index: " + e.getMessage());
+        }catch (RuntimeException e) {
+            System.out.println("Thread error: " + e.getMessage());
+            System.out.println("Thread Stack Trace: " + e.getStackTrace());
+            System.out.println("Thread Cause: " + e.getCause());
         }
 
     }
 
     public void setMemoriaComputador(int numberCase) {
-        switch (numberCase) {
-            case 1:
-                System.out.println("Memoria Curta Selecionada");
-                memoriaComputador = new MemoriaCurta(this);
-                System.out.println("Memoria size: " + ((MemoriaCurta) memoriaComputador).getMemorySize());
-                break;
-            case 2:
-                System.out.println("Memoria Fraca Selecionada");
-                memoriaComputador = new MemoriaFraca(this);
-                System.out.println("Memoria size: " + ((MemoriaFraca) memoriaComputador).getMemorySize());
-                break;
-            case 3:
-                System.out.println("Memoria Longa Selecionada");
-                memoriaComputador = new MemoriaLonga(this);
-                System.out.println("Memoria size: " + ((MemoriaLonga) memoriaComputador).getMemorySize());
-                break;
-            default:
-                memoriaComputador = new MemoriaCurta(this);
-                break;
+        try {
+
+            switch (numberCase) {
+                case 1:
+                    System.out.println("Memoria Curta Selecionada");
+                    memoriaComputador = new MemoriaCurta(this);
+                    System.out.println("Memoria size: " + ((MemoriaCurta) memoriaComputador).getMemorySize());
+                    break;
+                case 2:
+                    System.out.println("Memoria Fraca Selecionada");
+                    memoriaComputador = new MemoriaFraca(this);
+                    System.out.println("Memoria size: " + ((MemoriaFraca) memoriaComputador).getMemorySize());
+                    break;
+                case 3:
+                    System.out.println("Memoria Longa Selecionada");
+                    memoriaComputador = new MemoriaLonga(this);
+                    System.out.println("Memoria size: " + ((MemoriaLonga) memoriaComputador).getMemorySize());
+                    break;
+                default:
+                    memoriaComputador = new MemoriaCurta(this);
+                    break;
+            }
+        } catch (RuntimeException e) {
+            System.out.println("Thread Error: " + e.getMessage());
+            System.out.println("Thread Trace: " + e.getStackTrace());
         }
     }
 

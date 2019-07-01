@@ -5,6 +5,7 @@ import java.util.Map;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -74,7 +75,7 @@ public class Jogo extends Application {
         computerCountText.setDisable(true);
         computerCountText.setMaxWidth(129);
         // Muda dificuldade do computador do jogo
-        Label radioGroupLabel = new Label("Dificuldade Computador: ");
+        Label radioGroupLabel = new Label("Dificuldade \nComputador: ");
         ToggleGroup groupRadio = new ToggleGroup();
         RadioButton radEasy = new RadioButton("Easy");
         radEasy.setToggleGroup(groupRadio);
@@ -84,19 +85,19 @@ public class Jogo extends Application {
         RadioButton radHard = new RadioButton("Hard");
         radHard.setToggleGroup(groupRadio);
 
+        // Restart app
+        Button btRestart = new Button("Restart App");
+
         // Muda modo de jogo
-        Button btTypeGame = new Button("Mudar Jogo");
-
-
-//        Label radioTypeButton = new Label("Modo Jogo: ");
-//        ToggleGroup groupTypeButton = new ToggleGroup();
-//        RadioButton radBotaoCarta = new RadioButton("Normal Card");
-//        radBotaoCarta.setToggleGroup(groupTypeButton);
-//        radBotaoCarta.setSelected(true);
-//        RadioButton radBotaoBonus = new RadioButton("Bonus Card");
-//        radBotaoBonus.setToggleGroup(groupTypeButton);
-//        RadioButton radBotaoEspecial = new RadioButton("Special Card");
-//        radBotaoEspecial.setToggleGroup(groupTypeButton);
+        Label radioTypeButton = new Label("Modo Jogo: ");
+        ToggleGroup groupTypeButton = new ToggleGroup();
+        RadioButton radBotaoCarta = new RadioButton("Normal Card");
+        radBotaoCarta.setToggleGroup(groupTypeButton);
+        radBotaoCarta.setSelected(true);
+        RadioButton radBotaoBonus = new RadioButton("Bonus Card");
+        radBotaoBonus.setToggleGroup(groupTypeButton);
+        RadioButton radBotaoEspecial = new RadioButton("Special Card");
+        radBotaoEspecial.setToggleGroup(groupTypeButton);
         //
 
         // Configurar grid cards
@@ -106,17 +107,17 @@ public class Jogo extends Application {
         tab.setVgap(10);
         tab.setPadding(new Insets(25, 25, 25, 25));
 //        tab.setGridLinesVisible(true);
-        tab.addRow(6,btTypeGame);
+        tab.addRow(6, btRestart);
         tab.addRow(8, userCountLabel, userCountText);
         tab.addRow(10, computerCountLabel, computerCountText);
         tab.addRow(12, radioGroupLabel);
         tab.addRow(14, radEasy);
         tab.addRow(15, radNormal);
         tab.addRow(16, radHard);
-//        tab.addRow(17, radioTypeButton);
-//        tab.addRow(18, radBotaoCarta);
-//        tab.addRow(19, radBotaoBonus);
-//        tab.addRow(20, radBotaoEspecial);
+        tab.addRow(17, radioTypeButton);
+        tab.addRow(18, radBotaoCarta);
+        tab.addRow(19, radBotaoBonus);
+        tab.addRow(20, radBotaoEspecial);
 
         // Verifica o tipo de dificuldade por eventos
         radEasy.setOnAction(e -> {
@@ -135,6 +136,23 @@ public class Jogo extends Application {
             }
         });
 
+        // Verifica o modo de jogo selecionado
+        radBotaoCarta.setOnAction(e -> {
+            if (radBotaoCarta.isSelected()) {
+                cJog.setTipoBotao(1);
+            }
+        });
+//        radBotaoBonus.setOnAction(e -> {
+//            if (radBotaoBonus.isSelected()) {
+//                cJog.setTipoBotao(2);
+//            }
+//        });
+//        radBotaoEspecial.setOnAction(e -> {
+//            if (radBotaoEspecial.isSelected()) {
+//                cJog.setTipoBotao(3);
+//            }
+//        });
+
 
         // Cria os botoes das cartas
         for (int lin = 0; lin < ControleDeJogadas.NLIN; lin++) {
@@ -146,8 +164,12 @@ public class Jogo extends Application {
             }
         }
 
-        btTypeGame.setOnAction(e -> {
-            abreModal();
+        btRestart.setOnAction(e -> {
+            System.out.println("Restarting app");
+            primaryStage.close();
+            Platform.runLater(() -> {
+                new Jogo().start( new Stage());
+            });
         });
 
         // Monta a cena e exibe
@@ -157,7 +179,7 @@ public class Jogo extends Application {
     }
 
 
-    public void abreModal(){
+    public void abreModal() {
 //            Jogo.launch();
     }
 
@@ -217,10 +239,19 @@ public class Jogo extends Application {
                 userField.setText(StrPontosUser);
                 break;
             case FIMDEPARTIDA:
-                String str = "Humano: " + cJog.getPontosHumano() + " pontos\n";
-                str += "Computador: " + cJog.getPontosComputador() + " pontos";
                 Alert msgBox = new Alert(AlertType.INFORMATION);
                 msgBox.setHeaderText("Fim de Jogo");
+
+                String str = "Humano: " + cJog.getPontosHumano() + " pontos\n";
+                str += "Computador: " + cJog.getPontosComputador() + " pontos\n";
+
+                str += "Pares Totais: " + cJog.getQuantidadePares() + "\n";
+
+                if (cJog.getPontosHumano() > cJog.getPontosComputador()) {
+                    str += "Vencedor: HUMANO !";
+                } else {
+                    str += "Vencedor: COMPUTADOR !";
+                }
                 msgBox.setContentText(str);
                 msgBox.show();
                 return;

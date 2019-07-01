@@ -33,22 +33,6 @@ public class MemoriaCurta implements MemoriaComputador {
         }
     }
 
-    protected Carta chutaCarta(){
-        // Enquanto não "pegar" uma carta valida, repete
-        Carta carta = null;
-        while(carta == null){
-            int nLin = r.nextInt(ControleDeJogadas.NLIN);
-            int nCol = r.nextInt(ControleDeJogadas.NCOL);
-            carta = cJog.getCarta(nLin, nCol);
-            // Se a carta esta aberta ou é usada, anula
-            if (carta.getState() == CardState.ABERTA ||
-                    carta.getState() == CardState.USADA){
-                carta = null;
-            }
-        }
-        return carta;
-    }
-
     @Override
     public Carta getPrimeiraCarta() {
         // Chuta uma carta para abrir
@@ -73,5 +57,21 @@ public class MemoriaCurta implements MemoriaComputador {
     @Override
     public void removeDaMemoria(Carta carta) {
         memoria.remove(carta);
+    }
+
+    protected Carta chutaCarta(){
+        // Enquanto não "pegar" uma carta valida, repete
+        Carta carta = null;
+        while(carta == null){
+            int nLin = r.nextInt(ControleDeJogadas.NLIN);
+            int nCol = r.nextInt(ControleDeJogadas.NCOL);
+            carta = cJog.getCarta(nLin, nCol);
+            // Se a carta esta aberta ou é usada, anula
+            if (carta.getState() == CardState.ABERTA ||
+                    carta.getState() == CardState.USADA){
+                carta = null;
+            }
+        }
+        return carta;
     }
 }
