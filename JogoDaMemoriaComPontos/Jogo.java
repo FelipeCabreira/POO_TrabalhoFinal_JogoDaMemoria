@@ -86,7 +86,7 @@ public class Jogo extends Application {
         radHard.setToggleGroup(groupRadio);
 
         // Restart app
-        Button btRestart = new Button("Restart App");
+        Button btRestart = new Button("New Game");
 
         // Muda modo de jogo
         Label radioTypeButton = new Label("Modo Jogo: ");
@@ -187,8 +187,18 @@ public class Jogo extends Application {
     }
 
 
-    public void abreModal() {
-//            Jogo.launch();
+    public void resetGame() {
+    // Espera um tempo e depois reseta o jogo
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.millis(1500),
+                        e -> {
+                            System.out.println("New Jogo App");
+                            Platform.runLater(() -> {
+                                new Jogo().start(new Stage());
+                            });
+                        })
+        );
+        timeline.play();
     }
 
     public void viraCarta(ActionEvent e, TextField userField, TextField computerField) {
@@ -262,6 +272,7 @@ public class Jogo extends Application {
                 }
                 msgBox.setContentText(str);
                 msgBox.show();
+                resetGame();
                 return;
         }
         // Acoes que são iguais depois de se abrir a segunda carta
