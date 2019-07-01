@@ -122,6 +122,8 @@ public class Jogo extends Application {
         // Verifica o tipo de dificuldade por eventos
         radEasy.setOnAction(e -> {
             if (radEasy.isSelected()) {
+//                TODO: MUITOS ELEMENTOS NA LISTA DA INDEX OUTOFBOUNDS
+                cJog.clearList();
                 cJog.setMemoriaComputador(2);
             }
         });
@@ -139,14 +141,20 @@ public class Jogo extends Application {
         // Verifica o modo de jogo selecionado
         radBotaoCarta.setOnAction(e -> {
             if (radBotaoCarta.isSelected()) {
-                cJog.setTipoBotao(1);
+                primaryStage.close();
+                Platform.runLater(() -> {
+                    cJog.setTipoBotao(1);
+                });
             }
         });
-//        radBotaoBonus.setOnAction(e -> {
-//            if (radBotaoBonus.isSelected()) {
-//                cJog.setTipoBotao(2);
-//            }
-//        });
+        radBotaoBonus.setOnAction(e -> {
+            if (radBotaoBonus.isSelected()) {
+                primaryStage.close();
+                Platform.runLater(() -> {
+                    cJog.setTipoBotao(2);
+                });
+            }
+        });
 //        radBotaoEspecial.setOnAction(e -> {
 //            if (radBotaoEspecial.isSelected()) {
 //                cJog.setTipoBotao(3);
@@ -168,7 +176,7 @@ public class Jogo extends Application {
             System.out.println("Restarting app");
             primaryStage.close();
             Platform.runLater(() -> {
-                new Jogo().start( new Stage());
+                new Jogo().start(new Stage());
             });
         });
 

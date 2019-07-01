@@ -32,11 +32,12 @@ public class ControleDeJogadas {
         //  Seleciona o tipo de instancia de botao desejada ( modo de jogo )
         // Cria os pares de cartas em uma lista temporaria ( BOTAO CARTA )
         cartas = new ArrayList<>();
-        for (int i = 1; i <= NUMPARES; i++) {
-            // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
-            cartas.add(new BotaoCarta("img" + i));
-            cartas.add(new BotaoCarta("img" + i));
-        }
+        createList(cartas);
+//        for (int i = 1; i <= NUMPARES; i++) {
+//            // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+//            cartas.add(new BotaoCarta("img" + i));
+//            cartas.add(new BotaoCarta("img" + i));
+//        }
         // Embaralha as cartas
         Collections.shuffle(cartas);
 //        setTipoBotao(tipoBotao);
@@ -111,6 +112,18 @@ public class ControleDeJogadas {
             System.out.println("Thread Cause: " + e.getCause());
         }
 
+    }
+
+    public void createList(List cartas){
+        for (int i = 1; i <= NUMPARES; i++) {
+            // PAR DEIXAR INSTANCIAR O ICONE SE NÃO APENAS SEGUE A INSTANCIA NORMAL
+            cartas.add(new BotaoCarta("img" + i));
+            cartas.add(new BotaoCarta("img" + i));
+        }
+    }
+
+    public void clearList(){
+        cartas.clear();
     }
 
     public void setMemoriaComputador(int numberCase) {
