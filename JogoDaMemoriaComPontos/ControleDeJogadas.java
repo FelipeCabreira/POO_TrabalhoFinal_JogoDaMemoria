@@ -3,10 +3,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class ControleDeJogadas {
-//    public static final int NUMPARES = 9;
-//    public static final int NLIN = 6;
-//    public static final int NCOL = 3;
-
     public static final int NUMPARES = 9;
     public static final int NLIN = 6;
     public static final int NCOL = 3;

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MemoriaLonga extends MemoriaCurta {
-    public static final int MEMORY_SIZE = 30;
+    public static final int MEMORY_SIZE = 12;
 
     private List<Carta> memoria;
     private ControleDeJogadas controlGame;

@@ -123,7 +123,7 @@ public class Jogo extends Application {
         radEasy.setOnAction(e -> {
             if (radEasy.isSelected()) {
 //                TODO: MUITOS ELEMENTOS NA LISTA DA INDEX OUTOFBOUNDS
-                cJog.clearList();
+//                cJog.clearList();
                 cJog.setMemoriaComputador(2);
             }
         });
